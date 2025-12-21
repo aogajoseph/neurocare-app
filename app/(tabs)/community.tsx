@@ -1,24 +1,24 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import React from 'react';
 
-export default function LearnScreen() {
+export default function CommunityScreen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Conditions (A-Z)</Text>
+      <Text style={styles.title}>Community</Text>
 
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Neurological Conditions</Text>
-        <Text>Information about stroke, epilepsy, dementia, migraines, Parkinson’s, etc.</Text>
+        <Text style={styles.cardTitle}>Support Groups</Text>
+        <Text>Join local support groups and meet others affected by neurological conditions.</Text>
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Prevention & Lifestyle</Text>
-        <Text>Tips for brain health, exercise, nutrition, mental wellness.</Text>
+        <Text style={styles.cardTitle}>Events & Campaigns</Text>
+        <Text>Information about upcoming awareness events and campaigns.</Text>
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Myth vs Fact</Text>
-        <Text>Debunk common myths about neurological disorders.</Text>
+        <Text style={styles.cardTitle}>Volunteer Opportunities</Text>
+        <Text>Ways to get involved and help Neuro Care Foundation.</Text>
       </View>
     </ScrollView>
   );
