@@ -12,11 +12,11 @@ export default function TabLayout() {
             case 'index':
               iconName = 'home';
               break;
-            case 'assistant':
-              iconName = 'chatbubbles-outline';
-              break;
             case 'community':
               iconName = 'people-outline';
+              break;
+            case 'assistant':
+              iconName = 'chatbubbles-outline';
               break;
             case 'more':
               iconName = 'ellipsis-horizontal';
@@ -29,8 +29,8 @@ export default function TabLayout() {
       })}
     >
       <Tabs.Screen name="index" options={{ title: 'Home '}} />
-      <Tabs.Screen name="assistant" options={{ title: 'Assistant' }} />
       <Tabs.Screen name="community" options={{ title: 'Community' }} />
+      <Tabs.Screen name="assistant" options={{ title: 'Assistant' }} />
       <Tabs.Screen name="more" options={{ title: 'More', tabBarLabelStyle: { fontWeight: '600' } }} />
     </Tabs>
   );
