@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useConfig } from '@/src/bootstrap/ConfigContext';
 import { useLanguage } from '@/src/i18n/LanguageContext';
 import { LanguageMenu } from '@/src/components/header/LanguageMenu';
+import { ProfileMenu } from '@/src/components/header/ProfileMenu';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function AppHeader() {
@@ -13,6 +14,9 @@ export default function AppHeader() {
   const { language, setLanguage, supported } = useLanguage();
   const [showLang, setShowLang] = useState(false);
   const insets = useSafeAreaInsets();
+  const [showProfile, setShowProfile] = useState(false);
+  const user = { name: 'John Doe', email: 'john@example.com' }; // fetch from backend/auth
+
 
   if (loading) {
     return (
@@ -71,9 +75,14 @@ export default function AppHeader() {
           </TouchableOpacity>
 
           {/* Profile */}
-          <TouchableOpacity onPress={handleProfile}>
-            <Ionicons name="person-circle-outline" size={26} color="#111827" />
+          <TouchableOpacity onPress={() => setShowProfile(true)}>
+            <Ionicons name="person-circle-outline" size={26} />
           </TouchableOpacity>
+
+          <ProfileMenu
+            visible={showProfile}
+            onClose={() => setShowProfile(false)}
+          />
         </View>
       </View>
     </View>

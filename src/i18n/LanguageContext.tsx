@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useConfig } from '@/src/bootstrap/ConfigContext';
+import { savePreferences } from '@/src/auth/auth.api';
 
 type LanguageContextType = {
   language: string;
@@ -26,13 +27,10 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     })();
   }, []);
 
-  const setLanguage = async (lang: string) => {
-    setLanguageState(lang);
-    try {
-      await AsyncStorage.setItem('@language', lang);
-    } catch (e) {
-      console.error('Failed to save language', e);
-    }
+  const setLanguage = async (code: string) => {
+    setLanguageState(code);
+    await AsyncStorage.setItem('language', code);
+    await savePreferences({ language: code });
   };
 
   return (
