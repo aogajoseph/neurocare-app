@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ConfigContext, AppConfig } from './ConfigContext';
+import { LanguageProvider } from '@/src/i18n/LanguageContext';
 
 export function ConfigProvider({ children }: { children: React.ReactNode }) {
   const [config, setConfig] = useState<AppConfig | null>(null);
@@ -25,7 +26,7 @@ export function ConfigProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <ConfigContext.Provider value={{ config, loading }}>
-      {children}
+      <LanguageProvider>{children}</LanguageProvider>
     </ConfigContext.Provider>
   );
 }

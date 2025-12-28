@@ -1,12 +1,15 @@
 import { Stack } from 'expo-router';
-import { ConfigProvider } from '@/src/bootstrap/ConfigProvider';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { ConfigProvider } from '@/src/bootstrap/ConfigProvider';
+import { LanguageProvider } from '@/src/i18n/LanguageContext';
 
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <ConfigProvider>
-        <Stack screenOptions={{ headerShown: false }} />
+        <LanguageProvider>
+          <Stack screenOptions={{ headerShown: false }} />
+        </LanguageProvider>
       </ConfigProvider>
     </SafeAreaProvider>
   );
