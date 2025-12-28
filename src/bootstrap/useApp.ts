@@ -1,16 +1,34 @@
-import { useContext } from 'react';
-import { AppContext } from '../context/AppContext';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Constants from 'expo-constants';
 
-/**
- * Primary app hook.
- * Use this everywhere instead of accessing context directly.
- */
 export function useApp() {
-  const context = useContext(AppContext);
+  const [config, setConfig] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
 
-  if (!context) {
-    throw new Error('useApp must be used within AppContextProvider');
-  }
+  useEffect(() => {
+    async function bootstrap() {
+      try {
+        const backendUrl =
+          Constants.expoConfig?.extra?.EXPO_PUBLIC_BACKEND_URL;
 
-  return context;
+        if (!backendUrl) {
+          throw new Error('Missing EXPO_PUBLIC_BACKEND_URL');
+        }
+
+        const res = await axios.get(`${backendUrl}/api/config`);
+        setConfig(res.data);
+      } catch (err: any) {
+        console.error('Bootstrap failed:', err);
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    bootstrap();
+  }, []);
+
+  return { config, loading, error };
 }
