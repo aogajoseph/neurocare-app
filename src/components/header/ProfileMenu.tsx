@@ -1,75 +1,86 @@
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useAuth } from '@/src/auth/AuthContext';
 
 export function ProfileMenu({ visible, onClose }: any) {
   const { user, menu } = useAuth();
-  const navigation = useNavigation<any>();
+  const router = useRouter();
 
-  const handleAction = (item: any) => {
+  const isAnonymous = !user || user.isAnonymous;
+
+  const handleNavigate = (path: string) => {
     onClose();
-    switch (item.action.type) {
-      case 'navigate':
-        navigation.push(item.action.target);
-        break;
-      case 'modal':
-        if (item.action.target === 'language') {
-          navigation.push('language');
-        }
-        break;
-    }
+    router.push(path);
   };
 
   return (
     <Modal transparent visible={visible} animationType="fade">
       <TouchableOpacity style={styles.overlay} onPress={onClose}>
         <View style={styles.menu}>
-          {/* User info */}
+          {/* ───── User Header ───── */}
           <View style={styles.header}>
-            <Text style={styles.name}>{user?.name ?? 'Guest User'}</Text>
-            <Text style={styles.email}>{user?.email ?? 'Guest account'}</Text>
+            <Text style={styles.name}>
+              {isAnonymous ? 'Guest User' : user.name}
+            </Text>
+            <Text style={styles.email}>
+              {isAnonymous ? '@username' : user.email}
+            </Text>
           </View>
 
           {/* Divider */}
           <View style={styles.divider} />
 
-          {/* Sign Up / Sign In Links */}
-          {!user?.id && (
-            <View style={styles.authLinks}>
+          {/* ───── Auth actions (Anonymous only) ───── */}
+          {isAnonymous && (
+            <View style={styles.section}>
               <TouchableOpacity
-                style={styles.authItem}
-                onPress={() => {
-                  onClose();
-                  navigation.push('auth/signup'); // create signup screen
-                }}
+                style={styles.item}
+                onPress={() => handleNavigate('/(drawer)/(auth)/signup')}
               >
-                <Text style={styles.authText}>Sign Up</Text>
+                <Ionicons
+                  name="person-add-outline"
+                  size={20}
+                  color="#2563EB"
+                  style={styles.icon}
+                />
+                <Text style={styles.primaryLabel}>Sign Up</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
-                style={styles.authItem}
-                onPress={() => {
-                  onClose();
-                  navigation.push('auth/login');
-                }}
+                style={styles.item}
+                onPress={() => handleNavigate('/(drawer)/(auth)/login')}
               >
-                <Text style={styles.authText}>Sign In</Text>
+                <Ionicons
+                  name="log-in-outline"
+                  size={20}
+                  color="#2563EB"
+                  style={styles.icon}
+                />
+                <Text style={styles.primaryLabel}>Sign In</Text>
               </TouchableOpacity>
             </View>
           )}
 
-          {/* Menu items from backend */}
-          {menu.map((item) => (
-            <TouchableOpacity
-              key={item.id}
-              style={styles.item}
-              onPress={() => handleAction(item)}
-            >
-              <Ionicons name={item.icon} size={20} style={{ marginRight: 8 }} />
-              <Text style={styles.label}>{item.label}</Text>
-            </TouchableOpacity>
-          ))}
+          {/* ───── Backend-driven menu (Authenticated only) ───── */}
+          {!isAnonymous &&
+            menu.map((item: any) => (
+              <TouchableOpacity
+                key={item.id}
+                style={styles.item}
+                onPress={() =>
+                  handleNavigate(`/(drawer)/(tabs)/${item.action.target}`)
+                }
+              >
+                <Ionicons
+                  name={item.icon}
+                  size={20}
+                  color="#111827"
+                  style={styles.icon}
+                />
+                <Text style={styles.label}>{item.label}</Text>
+              </TouchableOpacity>
+            ))}
         </View>
       </TouchableOpacity>
     </Modal>
@@ -82,47 +93,57 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.2)',
     justifyContent: 'flex-start',
     alignItems: 'flex-end',
-    paddingTop: 70,
+    paddingTop: 72,
     paddingRight: 16,
   },
   menu: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 12,
-    width: 220,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 14,
+    paddingVertical: 12,
+    width: 240,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 8,
   },
   header: {
-    marginBottom: 8,
+    paddingHorizontal: 16,
+    paddingBottom: 8,
   },
   name: {
-    fontWeight: '600',
     fontSize: 16,
+    fontWeight: '600',
+    color: '#111827',
   },
   email: {
+    fontSize: 13,
     color: '#6B7280',
-    fontSize: 14,
+    marginTop: 2,
   },
   divider: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    height: 1,
+    backgroundColor: '#E5E7EB',
     marginVertical: 8,
   },
-  authLinks: {
-    marginBottom: 8,
-  },
-  authItem: {
-    paddingVertical: 6,
-  },
-  authText: {
-    color: '#2563EB',
-    fontWeight: '500',
+  section: {
+    paddingVertical: 4,
   },
   item: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+  },
+  icon: {
+    marginRight: 12,
   },
   label: {
-    fontSize: 16,
+    fontSize: 15,
+    color: '#111827',
+  },
+  primaryLabel: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#2563EB',
   },
 });
