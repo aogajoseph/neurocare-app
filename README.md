@@ -1,50 +1,68 @@
-# Welcome to your Expo app 👋
+# Neuro Care App (Frontend)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Neuro Care App is a cross-platform mobile application designed to provide accessible neurological health information, resources and community support. The frontend focuses on delivering a clear, inclusive and reliable user experience across devices.
 
-## Get started
+## Purpose
 
-1. Install dependencies
+The application aims to support individuals affected by neurological conditions, caregivers and the wider community by:
+- Presenting trusted neurological health information.
+- Surfacing organizational programs, events and resources.
+- Enabling guided assistance through an in-app AI assistant, termed Neuro.
+- Supporting anonymous and authenticated user flows.
 
-   ```bash
-   npm install
-   ```
+## Tech Stack
 
-2. Start the app
+- React Native (Expo)
+- TypeScript.
+- Expo Router.
+- Backend-driven navigation and configuration.
+- Personalization.
+- Internationalization and user preferences support.
 
-   ```bash
-   npx expo start
-   ```
+## Architecture Overview
 
-In the output, you'll find options to open the app in a
+The frontend is built around **backend-authoritative contracts**, ensuring consistency and maintainability across the platform. Screens and navigation are derived from API responses rather than hardcoded assumptions.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Key principles:
+- No screen exists without a corresponding backend contract.
+- Navigation structure is stable and contract-driven.
+- User identity supports both anonymous and authenticated states.
+- Multi-language support is part of the core identity layer.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Core Features
 
-## Get a fresh project
+- Home screen driven by backend configuration
+- Community and support resources.
+- Neuro Assistant (hybrid: general knowledge + organization data).
+- Profile and preferences management.
+- Safe-area aware, accessible UI patterns.
 
-When you're ready, run:
+## Screenshots
 
-```bash
-npm run reset-project
-```
+### Drawer
+![Drawer](./assets/screenshots/drawer.jpeg)
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Home
+![Home Screen](./assets/screenshots/home.jpeg)
 
-## Learn more
+### Community
+![Community Resources](./assets/screenshots/community.jpeg)
 
-To learn more about developing your project with Expo, look at the following resources:
+### Neuro Assistant
+![Neuro](./assets/screenshots/neuro.jpeg)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Status
 
-## Join the community
+This project is under active development and follows a phased implementation approach:
+1. Backend contracts definition.
+2. Navigation hierarchy.
+3. UI wiring.
+4. UX refinement.
 
-Join our community of developers creating universal apps.
+## Related Repositories
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Backend API: [neurocare-backend](../neurocare-backend)
+
+---
+
+Built with a focus on clarity, accessibility, and long-term maintainability.
