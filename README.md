@@ -31,7 +31,7 @@ Key principles:
 
 ## Core Features
 
-- Home screen driven by backend configuration
+- Home screen driven by backend configuration.
 - Community and support resources.
 - Neuro Assistant (hybrid: general knowledge + organization data).
 - Profile and preferences management.
@@ -61,8 +61,8 @@ This project is under active development and follows a phased implementation app
 
 ## Related Repositories
 
-- Backend API: [neurocare-backend](../neurocare-backend)
+- Backend API: [neurocare-backend](https://github.com/aogajoseph/neurocare-backend/)
 
 ---
 
-Built with a focus on clarity, accessibility, and long-term maintainability.
+Built with a focus on clarity, accessibility and long-term maintainability.
